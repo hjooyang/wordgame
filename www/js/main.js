@@ -76,9 +76,54 @@ function decreasePower(i, animate) {
   }
 }
 
+function wordLookup(word, cb_description) {
+  var url = 'http://api.wordnik.com/v4/word.json/'+ word +"/definitions?limit=1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5"
+  $.ajax({
+    type: 'GET',
+    url: url,
+    dataType: 'json',
+    success: function (json) {
+      var str = '';
+      //json.on('data', function(d) {
+        str += JSON.stringify(json);
+      //});
+      //json.on('end', function() {
+        var wordList = JSON.parse(str);
+        cb_description(wordList.length > 0 ? wordList[0].text : "");
+      //});
+    }
+
+  })
+}
+
 function getNewSecretWord() {
-  $.ajax( { url: "/randomword", cache : false }).done(function(data) {
-    var randomWord = JSON.parse(data);
+  var url = 'http://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=false&minCorpusCount=0&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+  $.ajax( {
+    type:'GET',
+    url: url,
+    dataType: 'json',
+    success: function (json) {
+      console.log('json? ', json);
+      //var newWord = JSON.parse(json).word;
+      console.log(json.word, 'newWord');
+      var str = '';
+      //json.on('data', function(d) {
+        str += JSON.stringify(json);
+      //});
+      //json.on('end', function() {
+        var wordObj = JSON.parse(str);
+        wordLookup(wordObj.word, function(descr) {
+          var randomWordObj = { word : wordObj.word, description : descr };
+          console.log('randomWordObj' , randomWordObj);
+          //response.send(JSON.stringify(randomWordObj));
+        });
+      //});
+    }
+
+
+  }).done(function(data) {
+    //var randomWord = JSON.parse(data);
+    var randomWord = data;
     $("#word-description").text(randomWord.description);
     secretWord = randomWord.word;
     letters = [];
@@ -99,6 +144,30 @@ function getNewSecretWord() {
     knownLetters = 0;
     showLetters();
   });
+
+
+  //$.ajax( { url: "/randomword", cache : false }).done(function(data) {
+  //  var randomWord = JSON.parse(data);
+  //  $("#word-description").text(randomWord.description);
+  //  secretWord = randomWord.word;
+  //  letters = [];
+  //  var wordAreaTable = $(".word-area table tr");
+  //  wordAreaTable.empty();
+  //  for (var i = 0; i < secretWord.length; i++) {
+  //    letters[i] = "?";
+  //    var tableCells = "<td></td>";
+  //    wordAreaTable.last().append(tableCells);
+  //  }
+  //  $(".word-area td").click(function() {
+  //    var index = $(this).index();
+  //    if (letters[index] === "?") {
+  //      $(".word-area td").removeClass("cell-selected");
+  //      $(this).addClass("cell-selected");
+  //    }
+  //  });
+  //  knownLetters = 0;
+  //  showLetters();
+  //});
 }
 
 function skipWord() {
