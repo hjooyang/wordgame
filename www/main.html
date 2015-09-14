@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="css/main.css" type="text/css">
+</head>
+<body style="background-image:url(/images/background.jpg)">
+<div id="name-dialog" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+        <div class="divDialogElements">
+          <label for="name-input" style="display:table-cell; width:100%">Enter your name:</label>
+          <input id="name-input" name="xlInput" type="text" style="display:table-cell; width:100%" class="xlarge">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ok">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h1 class="game-text">Guess the secret word!</h1>
+  <div class="row">
+    <div class="col-xs-8">
+      <div id="word-description">       </div>
+    </div>
+    <div class="col-xs-4">
+      <div id="score">Score:        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8">
+      <div class="word-area">
+        <table>
+          <tr>       </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-xs-4">
+      <div id="power">Power:            </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-8">
+      <div id="help-text" class="game-text">Click on a ?-box above and type a letter          </div>
+    </div>
+    <div class="col-xs-4">
+      <div class="row">
+        <div class="col-xs-12">
+          <button id="skip-button" class="btn btn-info btn-xs">Skip this word</button>
+        </div>
+        <div class="col-xs-12">
+          <button id="help-letter-button" class="btn btn-info btn-xs">Give me a letter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<audio id="tick-sound" src="sounds/Tick.mp3"></audio>
+<audio id="skip-sound" src="sounds/Falcon.mp3"></audio>
+<audio id="applause-sound" src="sounds/Applause.mp3"></audio>
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/bootstrap.js" type="text/javascript"></script>
+<script src="js/main.js" type="text/javascript"></script>
+</body>
+</html>
