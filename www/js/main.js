@@ -9,6 +9,12 @@ var knownLetters = 0;
 var score = 0;
 var power = 100; // Game over when power reaches zero!
 
+function alertNotification(message) {
+
+    IBMBluemix.getLogger().info("Received notification");
+    alert(JSON.stringify(message));
+}
+
 function changeScore(s) {
   score += s;
   if (score < 0)
@@ -115,6 +121,7 @@ function getNewSecretWord() {
         wordLookup(wordObj.word, function(descr) {
           var randomWordObj = { word : wordObj.word, description : descr };
           console.log('randomWordObj' , randomWordObj);
+          $("#word-description").text(randomWordObj.description);
           //response.send(JSON.stringify(randomWordObj));
         });
       //});
@@ -135,6 +142,11 @@ function getNewSecretWord() {
       wordAreaTable.last().append(tableCells);
     }
     $(".word-area td").click(function() {
+
+      if(window.cordova && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.show();
+      }
+
       var index = $(this).index();
       if (letters[index] === "?") {
         $(".word-area td").removeClass("cell-selected");
@@ -206,8 +218,10 @@ function populatePage() {
       decreasePower(1, true);
   });
 
+
   // Handle keyboard input
-  document.onkeypress = function (e) {
+  document.onkeyup = function (e) {
+  //document.onkeypress = function (e) {
     var c = String.fromCharCode(e.which);
     var cells = $(".word-area td");
     for (var i = 0; i < cells.length; i++) {

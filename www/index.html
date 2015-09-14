@@ -3,10 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' * 'unsafe-inline' 'unsafe-eval'">
     <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -23,6 +26,10 @@
     <script src="js/jquery.js" type="text/javascript"></script>
     <script src="js/bootstrap.js" type="text/javascript"></script>
     <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/IBMBluemixHybrid.js"></script>
+    <script src="js/IBMDataHybrid.js"></script>
+    <script src="js/IBMQuery.hybrid.js"></script>
+    <script src="js/IBMPushHybrid.js"></script>
   </head>
   <body ng-app="starter">
   <!--<div id="name-dialog" class="modal fade">-->
@@ -46,23 +53,21 @@
 
 
     <!--<ion-pane>-->
-      <ion-header-bar class="bar bar-header bar-positive">
-        <div class="buttons">
-          <button class="button button-clear icon ion-home"></button>
-        </div>
-        <h1 class="title">Word Game</h1>
-      </ion-header-bar>
+    <ion-header-bar class="bar bar-header bar-calm">
+      <div class="buttons">
+        <button class="button button-clear icon ion-home"></button>
+      </div>
+      <h1 class="title">Word Game</h1>
+    </ion-header-bar>
       <!--<ion-content>-->
     <ion-nav-view>
       <ion-view>
         <ion-content>
         <!--<div class="row responsive-sm">-->
-          <div class="row responsive-sm">
-          <div id="word-description" class="text-center">word description</div>
-        </div>
+
         <div class="row responsive-sm">
-          <div class="word-area col-center">
-            <table>
+          <div class="word-area col-center stable-bg">
+            <table class="dark-border">
               <tr>
                 <td>a</td>
                 <td>p</td>
@@ -73,17 +78,21 @@
             </table>
           </div>
         </div>
+          <div class="row responsive-sm">
+            <div id="word-description" class="text-center">word description</div>
+          </div>
         <div class="row responsive-sm">
           <div id="help-text" class="game-text col-center">Click on a ?-box above and type a letter          </div>
         </div>
         <div class="row responsive-sm">
-          <div class="col row-50"><div id="score">Score: </div></div>
-          <div class="col row-50"><div id="power">Power: </div></div>
+          <div class="list list-inset"></div>
+            <div class="col row-50"><div id="score">Score: </div></div>
+            <div class="col row-50"><div id="power">Power: </div></div>
           </div>
         <div class="row responsive-sm">
           <div class="button-bar">
-            <button id="skip-button" class="button btn-info button-positive">Skip this word</button>
-            <button class="button btn-info btn-xs button-positive">Give me a letter</button>
+            <button id="skip-button" class="button btn-info button-outline button-calm icon-left ion-star">Skip this word</button>
+            <button id="help-letter-button" class="button btn-info button-outline btn-xs button-calm icon-left ion-help">  Give me a letter</button>
           </div>
         </div>
         </ion-content>
@@ -91,5 +100,43 @@
     </ion-nav-view>
       <!--</ion-content>-->
     <!--</ion-pane>-->
+
+    <script>
+    var config = {
+      applicationId:'a66d9349-125e-46c7-b2fd-2ec9f98f1e09',
+      applicationRoute:'http://mjkongTTT.mybluemix.net',
+      applicationSecret:'1e5b3a9b66e86682c0ec3f40b1b1f44d7db1f0b4'
+    };
+    IBMBluemix.initialize(config).done(function(status){
+      // Initialize the Services
+      console.log("Successfully IBMBluemix initialized");
+      IBMData.initializeService().done(function(status){
+        console.log("Sucessful initialisation Data Services " );
+      }, function(err){
+        console.log("Fail initialisation Data Services " );
+      });
+
+      IBMPush.initializeService().done(function(status){
+        console.log("Successful initialisation Push Services ");
+        var push = IBMPush.getService();
+        push.registerDevice("Android", "hyjyang@kr.ibm.com", "").done(function(response) {
+            // Device successfully registered
+
+            console.log("Successfully registered Device in IBMPush");
+        }, function(err) {
+            // Handle errors
+            console.log("Fail registered Device in IBMPush");
+        });
+      },function(err){
+        console.log("Fail initialisation Push Services ");
+      });
+
+    }, function(err){
+        IBMBluemix.getLogger().error("Error intializing SDK");
+    });
+    </script>
   </body>
+  <audio id="tick-sound" src="sounds/Tick.mp3"></audio>
+  <audio id="skip-sound" src="sounds/Falcon.mp3"></audio>
+  <audio id="applause-sound" src="sounds/Applause.mp3"></audio>
 </html>

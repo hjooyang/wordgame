@@ -1,51 +1,60 @@
 .game-text {
-	color:white;
+  color:white;
 }
 
 #word-description {
-	background-color:green;
-	color:white;
-	font-size: 14px; 
-	opacity: 0.8; 
+  background-color: #009689;
+  font-style: oblique;
+  font-weight: bold;
+  color:white;
+  font-size: 16px;
+  opacity: 0.8;
 }
 
 #score {
-	background-color:green;
-	color:white;
-	font-size: 14px; 
-	opacity: 0.8; 
+  color: #262626;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 #power {
-	background-color:green;
-	color:white;
-	font-size: 14px; 
-	opacity: 0.8; 
+  color: #262626;
+  font-size: 14px;
+  opacity: 0.8;
 }
 
 .word-area {
-	background-color:gray;
-	font-size: 26px;
-	text-align:center;
-	opacity: 0.8; 
-	transition: background-color 0.8s ease-out 0s;
+  /*background-color:gray;*/
+  font-size: 26px;
+  text-align:center;
+  opacity: 0.8;
+  transition: background-color 0.8s ease-out 0s;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .word-area table {
-	text-align: center;
-	margin: 0 auto;
+  text-align: center;
+  /*margin: 0 auto;*/
+  margin: 10px;
 }
 
 .word-area table,tr,td {
-	border:1px solid yellow;
+  /*border:1px solid yellow;*/
+}
+
+.word-area td {
+  padding: 2px;
+  border-bottom: 2px solid #8f8f8f;
+  color: #8f8f8f;
 }
 
 .word-area.correctguess {
-	background-color:GoldenRod;	
+  background-color: #009689;
 }
 
 .word-area.powerdecreased {
-	background-color:Red;	
+  background-color: #ef473a;
 }
 
 .col {
@@ -54,13 +63,13 @@
 }
 
 .cell-selected {
-	background-color: yellow;
+  background-color: #009689;
 }
 
 .wrong-letter {
-	background-color: red;
+  background-color: #ef473a;
 }
 
 .modal, .modal.fade.in {
-    top: 30%;
+  top: 30%;
 }

@@ -19,7 +19,11 @@
     "cordova-plugin-console",
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    "com.ibm.mobile.cordova.ibmbluemix",
+    "com.ibm.mobile.cordova.ibmcloudcode",
+    "com.ibm.mobile.cordova.ibmpush",
+    "com.ibm.mobile.cordova.ibmdata"
   ],
   "cordovaPlatforms": [
     "ios",
